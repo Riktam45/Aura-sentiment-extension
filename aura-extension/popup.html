@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    :root {
+      --bg: #f4f7f6;
+      --card: #ffffff;
+      --text: #334e4e;
+      --pos: #86c398;
+      --neu: #ebd07b;
+      --neg: #e5989b;
+      --primary: #7ea1ac;
+    }
+    body {
+      width: 350px;
+      margin: 0;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+    h2 {
+      font-weight: 500;
+      font-size: 1.25rem;
+      margin-top: 0;
+      text-align: center;
+      color: #4a6b74;
+    }
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .tab {
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      font-weight: bold;
+    }
+    .panel {
+      display: none;
+    }
+    .panel.active {
+      display: block;
+    }
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      border: 1px solid #d1dbdc;
+      border-radius: 8px;
+      background-color: var(--card);
+      color: var(--text);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      outline: none;
+      transition: border 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--primary);
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.1s ease;
+    }
+    button:hover {
+      background-color: #6b8e9a;
+    }
+    button:active {
+      transform: scale(0.99);
+    }
+    /* Smooth Animated Graph Styling */
+    .chart-container {
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .bar-group {
+      margin-bottom: 12px;
+    }
+    .bar-label {
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .bar-bg {
+      background-color: #e0e6e6;
+      border-radius: 4px;
+      height: 12px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%; /* Dynamic */
+      border-radius: 4px;
+      transition: width 1.2s cubic-bezier(0.1, 0.8, 0.3, 1); /* Calm, elegant animation */
+    }
+    .pos-fill { background-color: var(--pos); }
+    .neu-fill { background-color: var(--neu); }
+    .neg-fill { background-color: var(--neg); }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  <title>Aura</title>
+</head>
+<body>
+
+  <h2>Aura Sentiment Analyzer</h2>
+
+  <div class="tabs">
+    <div class="tab active" id="tab-link">Analyze Post URL</div>
+    <div class="tab" id="tab-manual">Manual Paste</div>
+  </div>
+
+  <div class="panel active" id="panel-link">
+    <input type="text" id="post-url" placeholder="Paste social media link here..." />
+    <button id="analyze-url-btn">Analyze Thread Impact</button>
+  </div>
+
+  <div class="panel" id="panel-manual">
+    <textarea id="manual-text" rows="4" placeholder="Paste a single comment or paragraph here..."></textarea>
+    <button id="analyze-manual-btn">Analyze Comment</button>
+  </div>
+
+  <div class="chart-container" id="results-chart">
+    <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: 15px; text-align: center;">Overall Impact Breakdown</h3>
+    
+    <div class="bar-group">
+      <div class="bar-label"><span>Positive 😊</span> <span id="txt-pos">0%</span></div>
+      <div class="bar-bg"><div class="bar-fill pos-fill" id="bar-pos"></div></div>
+    </div>
+    
+    <div class="bar-group">
+      <div class="bar-label"><span>Neutral 😐</span> <span id="txt-neu">0%</span></div>
+      <div class="bar-bg"><div class="bar-fill neu-fill" id="bar-neu"></div></div>
+    </div>
+    
+    <div class="bar-group">
+      <div class="bar-label"><span>Negative 😡</span> <span id="txt-neg">0%</span></div>
+      <div class="bar-bg"><div class="bar-fill neg-fill" id="bar-neg"></div></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

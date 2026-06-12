@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Aura: Social Sentiment Analyzer",
+  "version": "1.0",
+  "description": "Analyze the emotional impact and sentiment of social media posts.",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8080/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' http://127.0.0.1:8080"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
